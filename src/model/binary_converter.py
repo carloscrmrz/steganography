@@ -25,7 +25,8 @@ def decode_binary(bin_string):
   una cadena de longitud arbitraria, y dependiendo de la 
   bandera la convierte en una cadena de longitud de la cadena.
 """
-
 def normalize_string(string, flag):
+    if ( len(string) % flag == 0 ):
+        return string
     return string + '0'*(flag - len(string) % flag)
 
