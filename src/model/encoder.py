@@ -66,4 +66,4 @@ def encode_rgba(message, pixels):
 
         except IndexError:
             break
-        
+    return newPixels
