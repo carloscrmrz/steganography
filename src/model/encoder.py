@@ -1,4 +1,5 @@
-import queue
+import array as arr
+import model.binary_converter as bc
 
 """
  Funcion auxiliar para cambiar el bit menos significativo de cada valor de color.
@@ -11,21 +12,58 @@ def lsb_manager(px1, bit):
         return px1 + 1
     return px1
 
+"""
+  Funcion para codificar un mensaje en binario en 
+  una matriz de pixeles, esta funcion trabaja con 
+  pixeles RGB, y por ende crea 3-tuplas.
+"""
 def encode_rgb(message, pixels):
-    binary_message = convert_binary(message)
-    binary_q       = queue.SimpleQueue()
+    binary_message = bc.encode_binary(message, 3)
+    binary_length  = bin(len(binary_message))[2:]
+    binary_q       = arr.array('b', [])
+
+    ## Hacemos esto para cuando hagamos la decodificacion sea sencillo conocer 
+    ## el tamano del mensaje que queremos decodificar.
+    for b in binary_length:
+        binary_q.append(int(b))
 
     for b in binary_message:
-        binary_q.put(int(b))
+        binary_q.append(int(b))
 
-    for i in range(0, len(pixels)):
+    newPixels = []
+    for i in range(0, len(pixels) - 1):
         try:
-            bits = (binary_q.get_nowait(), binary_q.get_nowait(), binary_q.get_nowait())
-            pixel = pixels[i]
-            newPixel = tuple(map(lsb_manager, pixel, bits))
+            bits = (binary_q.pop(0), binary_q.pop(0), binary_q.pop(0))
+            newPixels.append(tuple(map(lsb_manager, pixels[i], bits)))
 
-            if ( newPx != pixel ):
-                pixel = newPixel
-        except queue.Empty:
+        except IndexError:
             break
 
+    return newPixels
+"""
+  Funcion para codificar un mensaje en binario en 
+  una matriz de pixeles, esta funcion trabaja con 
+  pixeles RGBA, y por ende crea 4-tuplas.
+"""
+def encode_rgba(message, pixels):
+    binary_message = bc.encode_binary(message, 4)
+    binary_length  = bin(len(binary_message))[2:]
+    binary_q       = arr.array('b', [])
+
+    ## Hacemos esto para cuando hagamos la decodificacion sea sencillo conocer 
+    ## el tamano del mensaje que queremos decodificar.
+    for b in binary_length:
+        binary_q.append(int(b))
+
+    for b in binary_message:
+        binary_q.append(int(b))
+
+    newPixels = []
+    for i in range(0, len(pixels) - 1):
+        try:
+            bits = (binary_q.pop(0), binary_q.pop(0), binary_q.pop(0), binary_q.pop(0))
+            newPixels.append(tuple(map(lsb_manager, pixels[i], bits)))
+
+        except IndexError:
+            break
+        
