@@ -1,4 +1,4 @@
-#import model.encoder as encoder
+import model.encoder as encoder
 import random
 import queue
 
@@ -26,13 +26,17 @@ def test_encode_rgb():
     # La cadena en binario debe estar normalizada, ie debe ser multiplo de 3 o 4 
     # dependiendo si el modo es RGB o RGBA
     test_binary = \
-      "011010000110010101101100011011000110111100100000011101110110111101110010011011000110010000001010"
+      "0110100001100101011011000110110001101111001000000111011101101111011100100110110001100100"
 
+    binary_array = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0]
+    
     # Creamos una lista aleatoria de tuplas simulando cada uno un pixel RGB.
     test_pixels = \
-      [(random.randrange(0, 256), random.randrange(0, 256), random.randrange(0, 256)) for i in range(40)]
+      [(random.randrange(0, 256), random.randrange(0, 256), random.randrange(0, 256)) for i in range(100)]
 
-    encoder(test_binary, pixels)
-    
+    test_pixels = encoder.encode_rgb(test, test_pixels)
 
+    for i in range(0, len(test_pixels)-1):
+        for j in range(0,3):
+            assert(test_pixels[i][j] % 2 == binary_array.pop(0))
 test_encode_rgb()
