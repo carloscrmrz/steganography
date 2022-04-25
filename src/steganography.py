@@ -13,7 +13,6 @@ def flatten_list_tup(ls):
     return flat_ls
 
 def main():
-    desc = "Steganography is a fast and easy way to hide messages in plain sight"
     args = sys.argv[1:]
     opts = "hd:e:"
     long_opts = ["--help", "--decode=", "--encode="]
@@ -37,20 +36,10 @@ def main():
 
     except getopt.error as err:
         print(str(err))
+
+    if decode_encode_flag == "encode":
+        encode_image(path_to_img, message)
     
-    with Image.open(path_to_img) as img:
-        pixels = list(img.getdata())
-        if img.mode == "RGBA":
-            new_pixels = encoder.encode_rgba(message, pixels)
-        elif img.mode == "P":
-            img = img.convert("RGBA")
-            pixels = list(img.getdata())
-            new_pixels = encoder.encode_rgba(message, pixels)
-        else: 
-            new_pixels = encoder.encode_rgb(message, pixels)
-        new_pixels = [(1,1,0,0)]
-        img.putdata(new_pixels)
-        img.save("encoded.png")
 
 
 def show_help():
@@ -61,6 +50,26 @@ def show_help():
     print("   -e, --encode\t Encodes a message in an image.")
     sys.exit(0)
             
+def encode_image(path_to_image, message):
+    try:
 
-main()
+        with Image.open(path_to_img) as img:
+            pixels = list(img.getdata())
+            if img.mode == "RGBA":
+                new_pixels = encoder.encode_rgba(message, pixels)
+            elif img.mode == "P":
+                img = img.convert("RGBA")
+                pixels = list(img.getdata())
+                new_pixels = encoder.encode_rgba(message, pixels)
+            else: 
+                new_pixels = encoder.encode_rgb(message, pixels)
+            new_pixels = [(1,1,0,0)]
+            img.putdata(new_pixels)
+            img.save("encoded.png")
+    except:
+        print("Couldn't open your image, check your path and try again.")
+        sys.exit(0)
+
+if __name__ == "__main__":
+    main()
 
