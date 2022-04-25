@@ -40,14 +40,17 @@ def main():
     
     with Image.open(path_to_img) as img:
         pixels = list(img.getdata())
-        print(pixels[0])
         if img.mode == "RGBA":
+            new_pixels = encoder.encode_rgba(message, pixels)
+        elif img.mode == "P":
+            img = img.convert("RGBA")
+            pixels = list(img.getdata())
             new_pixels = encoder.encode_rgba(message, pixels)
         else: 
             new_pixels = encoder.encode_rgb(message, pixels)
-        new_pixels
+        new_pixels = [(1,1,0,0)]
         img.putdata(new_pixels)
-        img.save("encoded.jpg")
+        img.save("encoded.png")
 
 
 def show_help():
