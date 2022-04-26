@@ -34,7 +34,8 @@ def main():
             if currentArg in ("-e", "--encode"):
                 decode_encode_flag = "encode"
                 path_to_img = currentVal
-                message = values[0]
+                txtfile = open(values[0], 'r')
+                message = txtfile.read()
 
     except getopt.error as err:
         print(str(err))
