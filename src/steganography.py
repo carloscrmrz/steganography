@@ -76,21 +76,6 @@ def main():
         else:
             print("Sólo puedes abrir archivos png o jpeg")
 
-    # if (decode_encode_flag == 'decode'):
-    #     with Image.open(path_to_img) as img:
-    #         pixels = list(img.getdata())
-    #         hidden_message = ""
-    #         if img.mode == "RGBA":
-    #             hidden_message = decoder.get_hidden_msg(pixels,4)
-    #         elif img.mode == "RGB":
-    #             hidden_message = decoder.get_hidden_msg(pixels,3)
-    #         else:
-    #             print("Esto no es un archivo valido")
-    #         file = open("mensaje.txt", "w")
-    #         file.write(hidden_message)
-    #         file.close()
-
-
 def show_help():
     print("Usage: steganography.py [-h|-d|-e]\n")
     print("arguments:")
