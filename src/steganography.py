@@ -43,32 +43,38 @@ def main():
         print(str(err))
 
     if (decode_encode_flag == 'encode'):
-        with Image.open(path_to_img) as img:
-            pixels = list(img.getdata())
-            if img.mode == "RGBA":
-                new_pixels = encoder.encode_rgba(message, pixels)
-            elif img.mode == "P":
-                img = img.convert("RGBA")
+        if (decoder.comprobar(path_to_img)):
+            with Image.open(path_to_img) as img:
                 pixels = list(img.getdata())
-                new_pixels = encoder.encode_rgba(message, pixels)
-            else:
-                new_pixels = encoder.encode_rgb(message, pixels)
-            img.putdata(new_pixels)
-            img.save("encoded.png")
+                if img.mode == "RGBA":
+                    new_pixels = encoder.encode_rgba(message, pixels)
+                elif img.mode == "P":
+                    img = img.convert("RGBA")
+                    pixels = list(img.getdata())
+                    new_pixels = encoder.encode_rgba(message, pixels)
+                else:
+                    new_pixels = encoder.encode_rgb(message, pixels)
+                img.putdata(new_pixels)
+                img.save("encoded.png")
+        else:
+            print("Sólo puedes abrir archivos png o jpeg")
 
     if (decode_encode_flag == 'decode'):
-        with Image.open(path_to_img) as img:
-            pixels = list(img.getdata())
-            hidden_message = ""
-            if img.mode == "RGBA":
-                hidden_message = decoder.get_hidden_msg(pixels,4)
-            elif img.mode == "RGB":
-                hidden_message = decoder.get_hidden_msg(pixels,3)
-            else:
-                print("Esto no es un archivo valido")
-            file = open(path_to_txt, "w")
-            file.write(hidden_message)
-            file.close()
+        if (decoder.comprobar(path_to_img)):
+            with Image.open(path_to_img) as img:
+                pixels = list(img.getdata())
+                hidden_message = ""
+                if img.mode == "RGBA":
+                    hidden_message = decoder.get_hidden_msg(pixels,4)
+                elif img.mode == "RGB":
+                    hidden_message = decoder.get_hidden_msg(pixels,3)
+                else:
+                    print("Esto no es un archivo valido")
+                file = open(path_to_txt, "w")
+                file.write(hidden_message)
+                file.close()
+        else:
+            print("Sólo puedes abrir archivos png o jpeg")
 
     # if (decode_encode_flag == 'decode'):
     #     with Image.open(path_to_img) as img:
