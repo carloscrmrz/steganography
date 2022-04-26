@@ -109,3 +109,41 @@ print(messlength)
 print(int(messlength,2))
 
 print(dec.get_length(img4chanpixels,4))
+
+def flatten_list_tup(ls):
+    flat_ls = []
+    for tup in ls:
+        ls1 = []
+        for item in tup:
+            ls1.append(item)
+        flat_ls.append(ls1)
+
+    return flat_ls
+
+print(pixeeels)
+
+yetmorepixs = ""
+print(len(img4chanpixels)*4)
+for i in range (4, 61165):
+    for j in range(4):
+        yetmorepixs += (str((img4chanpixels[i])[j]%2))
+
+# print(yetmorepixs) # <- should match what get_hidden_pixels returns
+yetmorepixs2 = dec.get_hidden_pixels(img4chanpixels, 4)
+if (yetmorepixs == yetmorepixs2):
+    print ('\033[92m¡Éxito!\033[0m')
+else:
+    print ('\033[93mFracaso\033[0m')
+totespixs = ""
+totespixs += str((pixels1[5])[1]%2)
+totespixs += str((pixels1[5])[2]%2)
+for i in range (6, 50971):
+    for j in range(3):
+        totespixs += str((pixels1[i])[j]%2)
+totespixs2 = dec.get_hidden_pixels(pixels1, 3)
+if (totespixs == totespixs2):
+    print ('\033[92m¡Éxito!\033[0m')
+else:
+    print ('\033[93mFracaso\033[0m')
+print(len(totespixs))
+print(len(totespixs2)) # <- should match what get_hidden_pixels returns
