@@ -3,18 +3,20 @@ import model.binary_converter as bc
 
 """
  Funcion auxiliar para cambiar el bit menos significativo de cada valor de color.
- Recibe, el valor del pixel, determina si el bit menos significativo es igual al 
+ Recibe, el valor del pixel, determina si el bit menos significativo es igual al
  bit requerido, si no lo es lo cambia.
  Su uso es dentro de una map() para crear una tupla nueva.
 """
 def lsb_manager(px1, bit):
     if (px1 % 2 != bit):
+        if px1 == 255: # <- si el valor del pixel ya es el máximo, restamos.
+            return px1 - 1
         return px1 + 1
     return px1
 
 """
-  Funcion para codificar un mensaje en binario en 
-  una matriz de pixeles, esta funcion trabaja con 
+  Funcion para codificar un mensaje en binario en
+  una matriz de pixeles, esta funcion trabaja con
   pixeles RGB, y por ende crea 3-tuplas.
 """
 def encode_rgb(message, pixels):
@@ -22,7 +24,7 @@ def encode_rgb(message, pixels):
     binary_length  = bin(len(binary_message))[2:].zfill(16) # Longitud del mensaje.
     binary_q       = arr.array('b', [])
 
-    ## Hacemos esto para cuando hagamos la decodificacion sea sencillo conocer 
+    ## Hacemos esto para cuando hagamos la decodificacion sea sencillo conocer
     ## el tamano del mensaje que queremos decodificar.
     for b in binary_length:
         binary_q.append(int(b))
@@ -41,8 +43,8 @@ def encode_rgb(message, pixels):
 
     return newPixels
 """
-  Funcion para codificar un mensaje en binario en 
-  una matriz de pixeles, esta funcion trabaja con 
+  Funcion para codificar un mensaje en binario en
+  una matriz de pixeles, esta funcion trabaja con
   pixeles RGBA, y por ende crea 4-tuplas.
 """
 def encode_rgba(message, pixels):
@@ -50,7 +52,7 @@ def encode_rgba(message, pixels):
     binary_length  = bin(len(binary_message))[2:].zfill(16) # Longitud del mensaje.
     binary_q       = arr.array('b', [])
 
-    ## Hacemos esto para cuando hagamos la decodificacion sea sencillo conocer 
+    ## Hacemos esto para cuando hagamos la decodificacion sea sencillo conocer
     ## el tamano del mensaje que queremos decodificar.
     for b in binary_length:
         binary_q.append(int(b))
