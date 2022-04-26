@@ -181,6 +181,7 @@ print(pixeeels)
 
 pingu = Image.open('pez.jpeg')
 pinguxels = list(pingu.getdata())
+print("primer",pinguxels[0])
 test_length = 16
 print(pingu.mode)
 mensaje = "aaa hola"
@@ -215,4 +216,5 @@ print(first81lsb2)
 print(len(first81lsb2))
 length = 0
 length = dec.get_length(pinguxels, 3)
+print("primeract", pinguxels[0])
 print(length)
