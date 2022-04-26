@@ -21,6 +21,7 @@ def main():
 
     decode_encode_flag = ""
     path_to_img = ""
+    path_to_txt = ""
     message = ""
     try:
         arguments, values = getopt.getopt(args, opts, long_opts)
@@ -31,6 +32,7 @@ def main():
             if currentArg in ("-d", "--decode"):
                 decode_encode_flag = "decode"
                 path_to_img = currentVal
+                path_to_txt = values[0]
             if currentArg in ("-e", "--encode"):
                 decode_encode_flag = "encode"
                 path_to_img = currentVal
@@ -64,7 +66,7 @@ def main():
                 hidden_message = decoder.get_hidden_msg(pixels,3)
             else:
                 print("Esto no es un archivo valido")
-            file = open("mensaje.txt", "w")
+            file = open(path_to_txt, "w")
             file.write(hidden_message)
             file.close()
 
