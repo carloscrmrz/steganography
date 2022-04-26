@@ -26,14 +26,14 @@ Para ejecutar las pruebas unitarias, nos situaremos en el directorio `src` y eje
 $ pytest
 ```
 
-Para ejecutarse requerimos, una vez que hemos escrito en el archivo tth.txt (tth: text to hide) el mensaje que deseamos esconder, situarnos dentro del directorio `src`, hecho esto y con Pillow instalado usaremos el siguiente comando para esconder el mensaje dentro de tth.txt:
+Para ejecutarse requerimos, situarnos dentro del directorio `src`, hecho esto y con Pillow instalado usaremos el siguiente comando para esconder el mensaje:
 ```
-$ python3 steganography.py -e path/to/image.png tth.txt
+$ python3 steganography.py -e path/to/image.png path/to/message.txt
 ```
 
 Esto nos producira un archivo dentro de `src` llamado encoded.png, el cual es nuestra imagen con el mensaje codificado. Para decodificar y guardar el mensaje en un archivo txt con el nombre que deseemos usaremos el comando:
 ```
-$ python3 steganography.py -e path/to/encoded.png nombredelarchivodeseado.txt
+$ python3 steganography.py -e path/to/encoded.png desiredfilename.txt
 ```
 
 Este sacara a STDOUT el mensaje decodificado.
