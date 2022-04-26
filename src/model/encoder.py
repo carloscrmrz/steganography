@@ -21,7 +21,7 @@ def lsb_manager(px1, bit):
 """
 def encode_rgb(message, pixels):
     binary_message = bc.encode_binary(message, 3)
-    binary_length  = bin(len(binary_message))[2:].zfill(16)
+    binary_length  = bin(len(binary_message))[2:].zfill(16) # Longitud del mensaje.
     binary_q       = arr.array('b', [])
 
     ## Hacemos esto para cuando hagamos la decodificacion sea sencillo conocer
@@ -49,7 +49,7 @@ def encode_rgb(message, pixels):
 """
 def encode_rgba(message, pixels):
     binary_message = bc.encode_binary(message, 4)
-    binary_length  = bin(len(binary_message))[2:].zfill(16)
+    binary_length  = bin(len(binary_message))[2:].zfill(16) # Longitud del mensaje.
     binary_q       = arr.array('b', [])
 
     ## Hacemos esto para cuando hagamos la decodificacion sea sencillo conocer
