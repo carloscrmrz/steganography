@@ -2,16 +2,6 @@ import getopt, sys
 from PIL import Image
 import model.encoder as encoder
 
-def flatten_list_tup(ls):
-    flat_ls = []
-    for tup in ls:
-        ls1 = []
-        for item in tup:
-            ls1.append(item)
-        flat_ls.append(ls1)
-
-    return flat_ls
-
 def main():
     args = sys.argv[1:]
     opts = "hd:e:"
