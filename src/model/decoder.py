@@ -2,20 +2,6 @@ from PIL import Image
 from . import binary_converter as bc
 
 """
-    Función que comprueba que el archivo por abrir sea una imagen
-    que además debe ser jpeg o png. Recibe el nombre (con su ruta)
-    del archivo por abrir.
-"""
-def comprobar(name):
-    try:
-        img = Image.open(name)
-        t = (img.verify and (img.format == 'PNG' or img.format == 'JPEG'))
-        return t
-    except:
-        t = False
-        return t
-
-"""
     Función que obtiene la longitud de la cadena en binario
     que esconde el mensaje codificado. Recibe una lista de
     pixeles donde cada pixel es una tupla y una bandera que
