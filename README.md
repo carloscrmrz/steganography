@@ -2,7 +2,7 @@
 
 **Integrantes:**
 - Cabrera Ramirez Carlos
-- Medina Guzman Sergio
+- Medina Guzman Sergio (en mi rama, en el commit prepreúltimos ajustes, SHA 10c569c00ed317d107e7dcfbde1605d47c5244ed, está la carpeta test con pruebas que fueron ayudando a construir el código ;D)
 
 **Proyecto 02** para la clase de **Modelado y Programacion** con el profesor Jose Galaviz, Ximena Lezama, Luis Soto y Karla Esquivel en la Facultad de Ciencias, UNAM.
 
@@ -26,7 +26,7 @@ Para ejecutar las pruebas unitarias, nos situaremos en el directorio `src` y eje
 $ pytest
 ```
 
-Para ejecutarse requerimos, una vez que hemos escrito el mensaje que deseamos es conder en el archivo tth.txt (tth: text to hide), situarnos dentro del directorio `src`, hecho esto y con Pillow instalado usaremos el siguiente comando para esconder un mensaje:
+Para ejecutarse requerimos, una vez que hemos escrito en el archivo tth.txt (tth: text to hide) el mensaje que deseamos esconder, situarnos dentro del directorio `src`, hecho esto y con Pillow instalado usaremos el siguiente comando para esconder el mensaje dentro de tth.txt:
 ```
 $ python3 steganography.py -e path/to/image.png tth.txt
 ```
