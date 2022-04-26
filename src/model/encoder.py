@@ -9,6 +9,8 @@ import model.binary_converter as bc
 """
 def lsb_manager(px1, bit):
     if (px1 % 2 != bit):
+        if px1 == 255: # <- si el valor del pixel ya es el máximo, restamos.
+            return px1 - 1
         return px1 + 1
     return px1
 
@@ -57,7 +59,7 @@ def encode_rgba(message, pixels):
 
     for b in binary_message:
         binary_q.append(int(b))
-    
+
     newPixels = []
     for i in range(0, len(pixels) - 1):
         try:
