@@ -1,5 +1,5 @@
 from PIL import Image
-import numpy as snoopy # Me gusta Snoopy
+from . import binary_converter as bc
 
 def comprobar(name):
     try:
@@ -31,7 +31,7 @@ def get_length(pixels, flag):
     hidden_message_length = int(hidden_message_length, 2)
     return hidden_message_length
 
-def get_hidden_pixels(pixels, flag):
+def get_hidden_msg(pixels, flag):
     hidden_message = ""
     if flag == 3:
         hidden_message += str((pixels[5])[1]%2)
@@ -39,8 +39,10 @@ def get_hidden_pixels(pixels, flag):
         for i in range (6, (get_length(pixels, flag))-1):
             for j in range(3):
                 hidden_message += (str((pixels[i])[j]%2))
+        hidden_message = bc.decode_binary(hidden_message)
         return hidden_message
     for i in range(4, (get_length(pixels, flag))-1):
         for j in range(4):
             hidden_message += (str((pixels[i])[j]%2))
+    hidden_message = bc.decode_binary(hidden_message)
     return hidden_message

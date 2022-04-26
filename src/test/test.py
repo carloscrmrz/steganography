@@ -2,9 +2,9 @@ import sys
 sys.path.append("..")
 from operator import methodcaller
 
-from src.deco import decoder as dec
-from src.model import binary_converter as bicon
-from src.model import encoder as enc
+from model import decoder as dec
+from model import binary_converter as bc
+from model import encoder as enc
 from PIL import Image
 import numpy as snoopy
 
@@ -102,7 +102,7 @@ img4chanpixels = list(img4chan.getdata())
 morepixs = []
 for i in range (4):
     morepixs.append(img4chanpixels[i])
-    messlength = ""
+messlength = ""
 for i in range (4):
     for j in range (4):
         messlength += (str((morepixs[i])[j]%2))
@@ -124,28 +124,95 @@ def flatten_list_tup(ls):
 
 print(pixeeels)
 
-yetmorepixs = ""
-print(len(img4chanpixels)*4)
-for i in range (4, 61165):
-    for j in range(4):
-        yetmorepixs += (str((img4chanpixels[i])[j]%2))
+# yetmorepixs = ""
+# print(len(img4chanpixels)*4)
+# for i in range (4, 61165):
+#     for j in range(4):
+#         yetmorepixs += (str((img4chanpixels[i])[j]%2))
+#
+# # print(yetmorepixs) # <- should match what get_hidden_pixels returns
+# yetmorepixs2 = dec.get_hidden_msg(img4chanpixels, 4)
+# if (yetmorepixs == yetmorepixs2):
+#     print ('\033[92m¡Éxito!\033[0m')
+# else:
+#     print ('\033[93mFracaso\033[0m')
+# totespixs = ""
+# totespixs += str((pixels1[5])[1]%2)
+# totespixs += str((pixels1[5])[2]%2)
+# for i in range (6, 50971):
+#     for j in range(3):
+#         totespixs += str((pixels1[i])[j]%2)
+# totespixs2 = dec.get_hidden_msg(pixels1, 3)
+# if (totespixs == totespixs2):
+#     print ('\033[92m¡Éxito!\033[0m')
+# else:
+#     print ('\033[93mFracaso\033[0m')
+# print(len(totespixs))
+# print(len(totespixs2)) # <- should match what get_hidden_pixels returns
+#
+# encodedimg = Image.open('encoded.png')
+# encodedpixs = list(encodedimg.getdata())
+# fish = Image.open('pez.jpeg')
+# fishpixs = list(fish.getdata())
+#
+# print(fishpixs[0])
+# print(encodedpixs[0])
 
-# print(yetmorepixs) # <- should match what get_hidden_pixels returns
-yetmorepixs2 = dec.get_hidden_pixels(img4chanpixels, 4)
-if (yetmorepixs == yetmorepixs2):
-    print ('\033[92m¡Éxito!\033[0m')
-else:
-    print ('\033[93mFracaso\033[0m')
-totespixs = ""
-totespixs += str((pixels1[5])[1]%2)
-totespixs += str((pixels1[5])[2]%2)
-for i in range (6, 50971):
-    for j in range(3):
-        totespixs += str((pixels1[i])[j]%2)
-totespixs2 = dec.get_hidden_pixels(pixels1, 3)
-if (totespixs == totespixs2):
-    print ('\033[92m¡Éxito!\033[0m')
-else:
-    print ('\033[93mFracaso\033[0m')
-print(len(totespixs))
-print(len(totespixs2)) # <- should match what get_hidden_pixels returns
+# channels = 0
+# print(encodedimg.mode)
+# if encodedimg.mode == 'RGBA':
+#     channels = 4
+# else:
+#     channels = 3
+# # encondedstringpixs = dec.get_hidden_pixels(encodedpixs, 4)
+# # print(encondedstringpixs)
+# for i in range (4, 12):
+#     print(encodedpixs[i])
+# print("a", dec.get_length(encodedpixs,4))
+#
+# encpixlength = []
+# for i in range (4):
+#     encpixlength.append(encodedpixs[i])
+# print(encpixlength)
+# encmesslength = ""
+# for i in range (4):
+#     for j in range (4):
+#         encmesslength += (str((encpixlength[i])[j]%2))
+
+pingu = Image.open('pez.jpeg')
+pinguxels = list(pingu.getdata())
+test_length = 16
+print(pingu.mode)
+mensaje = "aaa hola"
+# mensaje = "a"
+print(mensaje)
+# mensaje = ''.join(format(ord(i),'b').zfill(8) for i in mensaje)
+# print(mensaje)
+# print(len(mensaje))
+mensaje = bc.encode_binary(mensaje,3)
+print(mensaje)
+print(len(mensaje))
+mensaje = bc.decode_binary(mensaje)
+print(mensaje)
+first81lsb = []
+for i in range (27):
+    for j in range (3):
+        first81lsb += (str((pinguxels[i])[j]%2))
+print(first81lsb)
+print(len(first81lsb))
+print()
+msg = "aaa hola"
+modified_pinguxels = enc.encode_rgb(msg, pinguxels)
+pingu.putdata(modified_pinguxels)
+pinguxels = list(pingu.getdata())
+print("mod", modified_pinguxels)
+print(len(modified_pinguxels))
+first81lsb2 = []
+for i in range (27):
+    for j in range (3):
+        first81lsb2 += (str((pinguxels[i])[j]%2))
+print(first81lsb2)
+print(len(first81lsb2))
+length = 0
+length = dec.get_length(pinguxels, 3)
+print(length)

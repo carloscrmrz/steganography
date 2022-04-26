@@ -17,7 +17,7 @@ def main():
     args = sys.argv[1:]
     opts = "hd:e:"
     long_opts = ["--help", "--decode=", "--encode="]
-    
+
     decode_encode_flag = ""
     path_to_img = ""
     message = ""
@@ -37,7 +37,7 @@ def main():
 
     except getopt.error as err:
         print(str(err))
-    
+
     with Image.open(path_to_img) as img:
         pixels = list(img.getdata())
         if img.mode == "RGBA":
@@ -46,9 +46,9 @@ def main():
             img = img.convert("RGBA")
             pixels = list(img.getdata())
             new_pixels = encoder.encode_rgba(message, pixels)
-        else: 
+        else:
             new_pixels = encoder.encode_rgb(message, pixels)
-        new_pixels = [(1,1,0,0)]
+        #new_pixels = [(1,1,0,0)]
         img.putdata(new_pixels)
         img.save("encoded.png")
 
@@ -60,7 +60,6 @@ def show_help():
     print("   -d, --decode\t Decodes a message from an image.")
     print("   -e, --encode\t Encodes a message in an image.")
     sys.exit(0)
-            
+
 
 main()
-
