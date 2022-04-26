@@ -3,6 +3,8 @@ sys.path.append("..")
 from operator import methodcaller
 
 from src.deco import decoder as dec
+from src.model import binary_converter as bicon
+from src.model import encoder as enc
 from PIL import Image
 import numpy as snoopy
 
