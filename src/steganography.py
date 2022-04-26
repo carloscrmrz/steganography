@@ -3,16 +3,6 @@ from PIL import Image
 import model.encoder as encoder
 import model.decoder as decoder
 
-def flatten_list_tup(ls):
-    flat_ls = []
-    for tup in ls:
-        ls1 = []
-        for item in tup:
-            ls1.append(item)
-        flat_ls.append(ls1)
-
-    return flat_ls
-
 def main():
     desc = "Steganography is a fast and easy way to hide messages in plain sight"
     args = sys.argv[1:]
@@ -46,9 +36,9 @@ def main():
         encode_image(path_to_img, message)
 
     if (decode_encode_flag == 'decode'):
-        decode_image(path_to_img)
+        decode_image(path_to_img, path_to_txt)
 
-def encode_image(path_to_image, message):
+def encode_image(path_to_img, message):
     try:
         with Image.open(path_to_img) as img:
             pixels = list(img.getdata())
@@ -66,9 +56,9 @@ def encode_image(path_to_image, message):
         print("Couldn't open your image, check your path and try again.")
         sys.exit(0)
 
-def decode_image(path_to_img):
+def decode_image(path_to_image,path_to_text):
     try:
-        with Image.open(path_to_img) as img:
+        with Image.open(path_to_image) as img:
             pixels = list(img.getdata())
             hidden_message = ""
             if img.mode == "RGBA":
@@ -77,12 +67,12 @@ def decode_image(path_to_img):
                 hidden_message = decoder.get_hidden_msg(pixels,3)
             else:
                 print("Esto no es un archivo valido")
-            file = open(path_to_txt, "w")
+            file = open(path_to_text, "w")
             file.write(hidden_message)
             file.close()
     except:
-        print("Couldn't open your image, check your path and try again.")
-        sys.exit(0)
+         print("Couldn't open your image, check your path and try again.")
+         sys.exit(0)
 
 def show_help():
     print("Usage: steganography.py [-h|-d|-e]\n")
