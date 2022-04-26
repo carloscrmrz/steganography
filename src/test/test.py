@@ -179,11 +179,14 @@ print(pixeeels)
 #     for j in range (4):
 #         encmesslength += (str((encpixlength[i])[j]%2))
 
-pez = Image.open('encoded.png')
-pezpix = list(pez.getdata())
-print(pez.mode)
-print(dec.get_length(pezpix,3))
-print(dec.get_hidden_msg(pezpix,3))
+enc = Image.open('encoded.png')
+encpix = list(enc.getdata())
+print(enc.mode)
+channels = 3
+if enc.mode == 'RGBA':
+    channels =+ 1
+print(dec.get_length(encpix,channels))
+print(dec.get_hidden_msg(encpix,channels))
 
 # pingu = Image.open('encoded2.png')
 # pinguxels = list(pingu.getdata())

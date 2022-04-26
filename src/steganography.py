@@ -39,32 +39,47 @@ def main():
     except getopt.error as err:
         print(str(err))
 
-    with Image.open(path_to_img) as img:
-        pixels = list(img.getdata())
-        if img.mode == "RGBA":
-            new_pixels = encoder.encode_rgba(message, pixels)
-        elif img.mode == "P":
-            img = img.convert("RGBA")
+    if (decode_encode_flag == 'encode'):
+        with Image.open(path_to_img) as img:
             pixels = list(img.getdata())
-            new_pixels = encoder.encode_rgba(message, pixels)
-        else:
-            new_pixels = encoder.encode_rgb(message, pixels)
-        #new_pixels = [(1,1,0,0)]
-        img.putdata(new_pixels)
-        img.save("encoded.png")
+            if img.mode == "RGBA":
+                new_pixels = encoder.encode_rgba(message, pixels)
+            elif img.mode == "P":
+                img = img.convert("RGBA")
+                pixels = list(img.getdata())
+                new_pixels = encoder.encode_rgba(message, pixels)
+            else:
+                new_pixels = encoder.encode_rgb(message, pixels)
+            img.putdata(new_pixels)
+            img.save("encoded.png")
 
-    # with Image.open(path_to_img) as img:
-    #     pixels = list(img.getdata())
-    #     hidden_message = ""
-    #     if img.mode == "RGBA":
-    #         hidden_message = decoder.get_hidden_msg(pixels,4)
-    #     elif img.mode == "RGB":
-    #         hidden_message = decoder.get_hidden_msg(pixels,3)
-    #     else:
-    #         print("Esto no es un archivo valido")
-    #     file = open("mensaje.txt", "w")
-    #     file.write(hidden_message)
-    #     file.close()
+    if (decode_encode_flag == 'decode'):
+        with Image.open(path_to_img) as img:
+            pixels = list(img.getdata())
+            hidden_message = ""
+            if img.mode == "RGBA":
+                hidden_message = decoder.get_hidden_msg(pixels,4)
+            elif img.mode == "RGB":
+                hidden_message = decoder.get_hidden_msg(pixels,3)
+            else:
+                print("Esto no es un archivo valido")
+            file = open("mensaje.txt", "w")
+            file.write(hidden_message)
+            file.close()
+
+    # if (decode_encode_flag == 'decode'):
+    #     with Image.open(path_to_img) as img:
+    #         pixels = list(img.getdata())
+    #         hidden_message = ""
+    #         if img.mode == "RGBA":
+    #             hidden_message = decoder.get_hidden_msg(pixels,4)
+    #         elif img.mode == "RGB":
+    #             hidden_message = decoder.get_hidden_msg(pixels,3)
+    #         else:
+    #             print("Esto no es un archivo valido")
+    #         file = open("mensaje.txt", "w")
+    #         file.write(hidden_message)
+    #         file.close()
 
 
 def show_help():
