@@ -1,6 +1,11 @@
 from PIL import Image
 from . import binary_converter as bc
 
+"""
+    Función que comprueba que el archivo por abrir sea una imagen
+    que además debe ser jpeg o png. Recibe el nombre (con su ruta)
+    del archivo por abrir.
+"""
 def comprobar(name):
     try:
         img = Image.open(name)
@@ -10,12 +15,14 @@ def comprobar(name):
         t = False
         return t
 
-# def descartarBytesFormato(img):
-#     imgdata = snoopy.array(list(img.getdata()))
-#     for i in range (24):
-#         snoopy.delete(imgdata, 0)
-#     return imgdata
-
+"""
+    Función que obtiene la longitud de la cadena en binario
+    que esconde el mensaje codificado. Recibe una lista de
+    pixeles donde cada pixel es una tupla y una bandera que
+    nos indica si son 3-tuplas o 4-tuplas, dependiendo del
+    número de canales que tenga la imagen (3 para RGB y 4
+    para RGBA).
+"""
 def get_length(pixels, flag):
     hidden_message_length = ""
     if flag == 3:
@@ -31,6 +38,14 @@ def get_length(pixels, flag):
     hidden_message_length = int(hidden_message_length, 2)
     return hidden_message_length
 
+"""
+    Función que obtiene los pixeles menos significativos
+    de cada canal de cada pixel, los va agregando a
+    hidden_message hasta que la longitud de dicha variable
+    es del tamaño que get_length indicó. Hace la conversión
+    de la cadena en binario a una cadena en texto plano
+    para poder leerse por un humano.
+"""
 def get_hidden_msg(pixels, flag):
     hidden_message = ""
     if flag == 3:
@@ -43,6 +58,8 @@ def get_hidden_msg(pixels, flag):
                     hidden_message += (str((pixels[i])[j]%2))
             i += 1
         hidden_message = bc.decode_binary(hidden_message)
+        if (hidden_message == "pato\n"):
+            hidden_message = "¡El mensaje era ~pato~! ¡Encontraste al pato!"
         return hidden_message
     i = 4
     while len(hidden_message) < get_length(pixels, flag):
@@ -51,4 +68,6 @@ def get_hidden_msg(pixels, flag):
                 hidden_message += (str((pixels[i])[j]%2))
         i += 1
     hidden_message = bc.decode_binary(hidden_message)
+    if (hidden_message == "pato\n"):
+        hidden_message = "¡El mensaje era ~pato~! ¡Encontraste al pato!"
     return hidden_message
