@@ -179,42 +179,15 @@ print(pixeeels)
 #     for j in range (4):
 #         encmesslength += (str((encpixlength[i])[j]%2))
 
-pingu = Image.open('pez.jpeg')
+pez = Image.open('encoded.png')
+pezpix = list(pez.getdata())
+print(pez.mode)
+print(dec.get_length(pezpix,3))
+print(dec.get_hidden_msg(pezpix,3))
+
+pingu = Image.open('encoded2.png')
 pinguxels = list(pingu.getdata())
-print("primer",pinguxels[0])
-test_length = 16
 print(pingu.mode)
-mensaje = "aaa hola"
-# mensaje = "a"
-print(mensaje)
-# mensaje = ''.join(format(ord(i),'b').zfill(8) for i in mensaje)
-# print(mensaje)
-# print(len(mensaje))
-mensaje = bc.encode_binary(mensaje,3)
-print(mensaje)
-print(len(mensaje))
-mensaje = bc.decode_binary(mensaje)
-print(mensaje)
-first81lsb = []
-for i in range (27):
-    for j in range (3):
-        first81lsb += (str((pinguxels[i])[j]%2))
-print(first81lsb)
-print(len(first81lsb))
-print()
-msg = "aaa hola"
-modified_pinguxels = enc.encode_rgb(msg, pinguxels)
-pingu.putdata(modified_pinguxels)
-pinguxels = list(pingu.getdata())
-print("mod", modified_pinguxels)
-print(len(modified_pinguxels))
-first81lsb2 = []
-for i in range (27):
-    for j in range (3):
-        first81lsb2 += (str((pinguxels[i])[j]%2))
-print(first81lsb2)
-print(len(first81lsb2))
-length = 0
-length = dec.get_length(pinguxels, 3)
-print("primeract", pinguxels[0])
-print(length)
+print(dec.get_length(pinguxels,4))
+lengthpixels = "".join
+#print(dec.get_hidden_msg(pinguxels,4))

@@ -36,13 +36,19 @@ def get_hidden_msg(pixels, flag):
     if flag == 3:
         hidden_message += str((pixels[5])[1]%2)
         hidden_message += str((pixels[5])[2]%2)
-        for i in range (6, (get_length(pixels, flag))-1):
+        i = 6
+        while len(hidden_message) < get_length(pixels, flag)-2:
             for j in range(3):
-                hidden_message += (str((pixels[i])[j]%2))
+                if len(hidden_message) < get_length(pixels, flag)-2:
+                    hidden_message += (str((pixels[i])[j]%2))
+            i += 1
         hidden_message = bc.decode_binary(hidden_message)
         return hidden_message
-    for i in range(4, (get_length(pixels, flag))-1):
+    i = 4
+    while len(hidden_message) < get_length(pixels, flag):
         for j in range(4):
-            hidden_message += (str((pixels[i])[j]%2))
+            if len(hidden_message) < get_length(pixels, flag):
+                hidden_message += (str((pixels[i])[j]%2))
+        i += 1
     hidden_message = bc.decode_binary(hidden_message)
     return hidden_message
