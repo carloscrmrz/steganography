@@ -32,11 +32,15 @@ def main():
     except getopt.error as err:
         print(str(err))
 
+    print(decode_encode_flag)
     if (decode_encode_flag == 'encode'):
         encode_image(path_to_img, message)
-
-    if (decode_encode_flag == 'decode'):
+    elif (decode_encode_flag == 'decode'):
         decode_image(path_to_img, path_to_txt)
+    else:
+        # Shouldn't reach here if passed any of the flags
+        print("option not recognized, check your inputs.")
+        sys.exit(0)
 
 def encode_image(path_to_img, message):
     try:
