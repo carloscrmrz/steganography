@@ -1,5 +1,5 @@
 from PIL import Image
-from . import binary_converter as bc
+import model.binary_converter as bc
 
 """
     Función que obtiene la longitud de la cadena en binario
